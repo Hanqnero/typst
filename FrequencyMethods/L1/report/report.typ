@@ -4,6 +4,11 @@
 #style.ReportStyle[
 #titlepage.TitlePage([Лабораторная работа №1: Ряды Фурье], [Смирнов Алексей Владимирович], [ 409578 ], [ R3242 ])
 
+#outline(
+  depth: 2, 
+)
+#pagebreak()
+
 = Задание 1. Вещественная функция
 == Квадратная волна
 Для функции
@@ -60,24 +65,7 @@ $
 === Численное решенеие
 Для вычисления значения коэффициентов при помощи численных методов написали программу на *Python3.13* с использованием библиотеки *numpy* (@list1):
 
-#import "@preview/codly:1.2.0": *
-#show: codly-init
-
-#import "@preview/codly-languages:0.1.7": *
-#codly(languages: codly-languages, zebra-fill: none)
-
-#figure(
-  include "sup/list-fourier.typ",
-  caption: [Программа для вычисления коэффициентов]
-) <list1>
-
 Затем вычислили коэффиценты для квадратной волны (@list2):
-
-
-#figure(
-  include "sup/list-square.typ",
-  caption: [Программа для вычисления коэффицентов для квадратной волны]
-) <list2>
 
 
 === Сравнение аналитического и численного решения
@@ -209,7 +197,7 @@ sum( a_n^2 ||cos(omega_n t)||^2 + b_n^2 ||sin(omega_n t)||^2 ) = \
 $
 Равенство выполняется
 
-== Функция без четности
+=== Функция без четности
 $
   f(x) = (x mod 3)^2 + 3(x mod 3) - 7, T=3 
 $
@@ -334,12 +322,6 @@ $
   &c_1 = 2.29264 + 1.73472times 10^(-18)i approx 2.29264\
   &c_2 = -4.99322times 10^(-07) approx 0
 $
-
-#figure(
-  include "sup/list3.typ",
-  caption: [Программа для поиска коэффициентов и проверки равенства Парсеваля для задания 2]
-) <list3>
-
 == Равенство Парсеваля
 Проверим выполение равенства Парсеваля для $G_N (t)$ при $N=50$. Проверка реализована в программе (См. @list3:80)
 
@@ -358,6 +340,34 @@ $
 Построили графики разложения $G_N (t)$ для различных $N$.
 
 Убедились в выполнении равенства Парсеваля для функции $f(t)$ для базиса ${e^(i omega_n t)}_(n=-infinity)^infinity$.
+
+#pagebreak()
+#show link: underline
+= Приложение
+Исходный код программ, а также графики можно найти в репозитории по адресу:
+
+#link("github.com/Hanqnero/typst/tree/master/FrequencyMethods/L1")
+
+#import "@preview/codly:1.2.0": *
+#show: codly-init
+
+#import "@preview/codly-languages:0.1.7": *
+#codly(languages: codly-languages, zebra-fill: none)
+
+#figure(
+  include "sup/list-fourier.typ",
+  caption: [Программа для вычисления коэффициентов]
+) <list1>
+
+#figure(
+  include "sup/list-square.typ",
+  caption: [Программа для вычисления коэффицентов для квадратной волны]
+) <list2>
+
+#figure(
+  include "sup/list3.typ",
+  caption: [Программа для поиска коэффициентов и проверки равенства Парсеваля для задания 2]
+) <list3>
 
 // DOCUMENT END
 ]
