@@ -52,7 +52,7 @@ ax[1].set_xlabel("$t$")
 ax[0].plot(xs, np.real(ys))
 ax[1].plot(xs, np.imag(ys))
 
-fig.savefig("fig/comp/f.svg", format='svg', bbox_inches='tight')
+fig.savefig("../fig/comp/f.svg", format='svg', bbox_inches='tight')
 
 for N in [1, 2, 3, 10]:
     ys = G_N_sum(func, T, N)(xs)
@@ -71,7 +71,7 @@ for N in [1, 2, 3, 10]:
 
     ax[1].plot(xs, np.imag(ys0))
     ax[1].plot(xs, im)
-    fig.savefig(f'fig/comp/N{N}.svg', format='svg', bbox_inches='tight')
+    fig.savefig(f'../fig/comp/N{N}.svg', format='svg', bbox_inches='tight')
 
 # Значение коэффициентов c_n
 np.set_printoptions(precision=5, linewidth=120)
