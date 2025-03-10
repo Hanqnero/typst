@@ -21,7 +21,7 @@
   set text(
     lang: "ru",
     size: 14pt,
-    font: ("Times New Roman")
+    font: ("New Computer Modern")
   )
   show figure: set block(breakable: true)
 
