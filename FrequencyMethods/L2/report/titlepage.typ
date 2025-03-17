@@ -21,8 +21,8 @@
   #counter(page).update(1)
 ]
 
-#let OutlinePage() = {
-  outline()
+#let OutlinePage(d: 3) = {
+  outline(depth: d)
   pagebreak()
   counter(page).update(1)
 }
