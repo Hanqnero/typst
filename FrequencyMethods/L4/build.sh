@@ -18,15 +18,20 @@ fi
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Define paths relative to script directory
-REPORT_SOURCE="${SCRIPT_DIR}/report/report.typ"
-REPORT_OUTPUT="${SCRIPT_DIR}/report.pdf"
-NOTEBOOK_PATH="${SCRIPT_DIR}/python/notebook.ipynb"
+REPORT_SOURCE   ="${SCRIPT_DIR}/report/report.typ"
+REPORT_OUTPUT   ="${SCRIPT_DIR}/report.pdf"
+NOTEBOOK_PATH   ="${SCRIPT_DIR}/python/notebook.ipynb"
+SPLITTER_SCRIPT ="${SCRIPT_DIR}/process_notebook.py"
 
-# Create necessary directories if they don't exist
-mkdir -p "$(dirname "$REPORT_OUTPUT")" || { echo "Failed to create directory"; exit 1; }
+# Split notebook to cells
+rm -fr $(dirname $SCRIPT_DIR)/cells && mkdir -p {$SCRIPT_DIR}/python/cells
+python3 $SPLITTER_SCRIPT "$NOTEBOOK_PATH" "${SCRIPT_DIR}/python/cells"
 
-echo "Executing Jupyter notebook..."
-jupyter nbconvert --to notebook --execute "$NOTEBOOK_PATH" --inplace
+if [ "$1" == "--execute" ]; then
+    echo "Executing Jupyter notebook..."
+    jupyter nbconvert --to notebook --execute "$NOTEBOOK_PATH" --inplace
+else
+    echo "Skipping notebook execution. Use '--execute' flag to execute the notebook."
 
 echo "Checking if 'typst' is installed..."
 if ! command -v typst &> /dev/null; then
@@ -37,5 +42,8 @@ fi
 # Generate the PDF report
 echo "Generating PDF report..."
 typst compile --root "$SCRIPT_DIR" "$REPORT_SOURCE" "$REPORT_OUTPUT"
+
+touch "${SCRIPT_DIR}/python/cells/last_cell.txt"
+ls -l ${SCRIPT_DIR}/python/cells | wc -n > "${SCRIPT_DIR}/python/cells/last_cell.txt" 
 
 echo "Done! Report generated at $REPORT_OUTPUT"
