@@ -1,4 +1,9 @@
 .DS_Store
-**/*.svg
-**/__pycache__
 
+.gitignore
+
+*.svg
+fig
+
+.venv
+__pycache__
